@@ -1,0 +1,7 @@
+Add fire trail sprites for player
+Add fire trail sprites for enemies
+Implement a highscore table - look at load/save table
+Implement highscore name entry 3 letters
+Implement pause state
+Implement other enemy ships (See FastEnemyShip.js for inheritance example, also https://www.youtube.com/watch?v=MfxBfRD0FVU and https://www.youtube.com/watch?v=8a5BkwuZRK0)
+Comment through the current codebase
