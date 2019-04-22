@@ -50,14 +50,13 @@ class BulletObjectPool{
            		_object.IsAlive())
         {
           bullets[i].alive = false;
-          _object.alive = false;
           if (_object.tag == "Enemy")
           {
+            _object.TakeDamage(1);
           	score++;
             flashScreen(255);
             explosion(bullets[i].x, bullets[i].y);
           }
-          print("Collision Detected");
         	break;
         }
       }

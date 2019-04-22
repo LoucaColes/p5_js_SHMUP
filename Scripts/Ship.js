@@ -1,5 +1,9 @@
+let trailSprites = [3];
+let trailTime = 0.03;
+let trailTimer = 0;
+
 class Ship{
-  constructor(_x, _y, _objectPool, _width, _height) {
+  constructor(_x, _y, _objectPool, _width, _height, _audioManager) {
     this.x = _x;
     this.y = _y;
     this.size = 30;
@@ -12,10 +16,16 @@ class Ship{
     this.fireTimer = 0;
     this.tag = "Player";
     this.alive = true;
-    this.sprite = loadImage('Sprites/playerShip3_blue.png');    
+    this.sprite = loadImage('Sprites/playerShip3_blue.png');  
+    trailSprites[0] = loadImage('Sprites/spaceEffects_005.png');
+    trailSprites[1] = loadImage('Sprites/spaceEffects_006.png');
+    trailSprites[2] = loadImage('Sprites/spaceEffects_007.png');
+    this.trailIndex = 1;
+    this.trailSprite = trailSprites[this.trailIndex];
+    this.audioManager = _audioManager;
   }
 
-  move() {
+  move() {    
     if (this.x > 0 && this.x < this.xBounds)
     {
       if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
@@ -63,15 +73,16 @@ class Ship{
   }
   
   fire() {
-    print("Fire");
       this.bulletObjectPool.spawn(this.x, this.y - this.bulletOffset);
-    
+    this.audioManager.PlayLaser();
   }
 
   display(debug = false)
   {
     imageMode(CENTER);
-  	image(this.sprite, this.x, this.y, this.size, this.size); 
+  	image(this.sprite, this.x, this.y, this.size, this.size);
+    image(this.trailSprite, this.x, this.y + 30, this.size/3, this.size);
+    
     if (debug)
     {
       stroke(0, 255, 0);

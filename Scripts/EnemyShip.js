@@ -1,13 +1,15 @@
-class FastEnemyShip extends EnemyShip{
-  constructor(_x, _y) {
+class EnemyShip{
+  constructor(_x, _y, _size, _horMoveSpeed, _vertMoveSpeed, _spritePath, _trailPath) {
     this.x = _x;
     this.y = _y;
-    this.size = 30;
-    this.moveSpeed = 3;
-    this.a = 0;
+    this.size = _size;
+    this.horMoveSpeed = _horMoveSpeed;
+    this.vertMoveSpeed = _vertMoveSpeed;
     this.alive = false;
     this.tag = "Enemy";
-    this.sprite = loadImage('Sprites/enemyRed2.png');
+    this.sprite = loadImage(_spritePath);
+    this.tailSprite = loadImage(_trailPath);
+    this.health = 1;
   }
 
   reset(_x = 0, _y = 0)
@@ -15,6 +17,7 @@ class FastEnemyShip extends EnemyShip{
     this.x = _x;
     this.y = _y;
     this.alive = false;
+    this.health = 1;
   }
   
   spawn(_x, _y)
@@ -25,13 +28,7 @@ class FastEnemyShip extends EnemyShip{
   }
   
   move() {
-    this.x += (sin(this.a) * (this.moveSpeed * 3));
-    this.y += this.moveSpeed;
-    this.a += 0.1;
-    if (this.a > 360)
-    {
-      this.a = -360;
-    }
+    this.y += this.vertMoveSpeed;
     
     if (this.y > 600)
     {
@@ -42,7 +39,9 @@ class FastEnemyShip extends EnemyShip{
   display(debug = false)
   {
     imageMode(CENTER);
-  	image(this.sprite, this.x, this.y, this.size, this.size); 
+  	image(this.sprite, this.x, this.y, this.size, this.size);
+    image(this.tailSprite, this.x, this.y - 25, this.size/3, this.size);
+    
     if (debug)
     {
       stroke(0, 255, 0);
@@ -60,5 +59,14 @@ class FastEnemyShip extends EnemyShip{
   IsAlive()
   {
     return this.alive;
+  }
+  
+  TakeDamage(_amount)
+  {
+    this.health -= _amount;
+    if (this.health <= 0)
+    {
+      this.alive = false;
+    }
   }
 }

@@ -8,7 +8,7 @@ class EnemyShipObjectPool{
     this.ships = [];
     this.bulletObjectPool = _objectPool;
     for (let i = 0; i < this.shipCount; i++) {
-    	this.ships.push(new EnemyShip(0, 0));
+    	this.ships.push(new NormalEnemyShip(0, 0, 30, 3, 3, 'Sprites/enemyRed1.png', 'Sprites/spaceEffects_006Flipped.png'));
   	}
     
     for (let j = 0; j < spawnAmount; j++)
@@ -93,7 +93,6 @@ class EnemyShipObjectPool{
               gameState = 2;
             }
           }
-          print("Collision Detected");
         	break;
         }
       }
